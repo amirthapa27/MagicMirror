@@ -9,7 +9,7 @@ const FeedMe = require("feedme");
 const NodeHelper = require("node_helper");
 const fetch = require("node-fetch");
 const iconv = require("iconv-lite");
-
+const moment = require("moment");
 /**
  * Responsible for requesting an update on the set interval and broadcasting the data.
  *
@@ -45,7 +45,8 @@ const NewsfeedFetcher = function (url, reloadInterval, encoding, logFeedWarnings
 		parser.on("item", (item) => {
 			const title = item.title;
 			let description = item.description || item.summary || item.content || "";
-			const pubdate = item.pubdate || item.published || item.updated || item["dc:date"];
+			const rawPubdate = item.pubdate || item.published || item.updated || item["dc:date"];
+			const pubdate = moment(rawPubdate, "ddd, DD MMM YYYY hms").toDate();
 			const url = item.url || item.link || "";
 
 			if (title && pubdate) {
