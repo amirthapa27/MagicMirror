@@ -395,7 +395,7 @@ Module.register("weatherforecast", {
 					day: day,
 					icon: this.config.iconTable[forecast.weather[0].icon],
 					maxTemp: this.roundValue(forecast.temp.max),
-					//minTemp: this.roundValue(forecast.temp.min),
+					minTemp: this.roundValue(forecast.temp.min),
 					rain: this.processRain(forecast, forecastList, mom)
 				};
 				this.forecast.push(forecastData);
